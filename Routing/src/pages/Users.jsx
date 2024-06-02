@@ -1,21 +1,14 @@
-import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Shimmer from "../components/Shimmer";
+import useGetUsers from "../hooks/useGetUsers";
 
 const Users = () => {
   const naviget = useNavigate();
-  const [user, setUser] = useState([]);
+  const user = useGetUsers();
 
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await fetch("https://jsonplaceholder.typicode.com/users");
-      const userData = await user.json();
-      setUser(userData);
-    };
-    getUser();
-  }, []);
-
-  return (user.length===0)?<Shimmer/>:(
+  return user.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <section className="w-screen">
         <div className="container mx-auto my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-4 gap-5">
